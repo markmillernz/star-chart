@@ -2,7 +2,6 @@
   "name": "star-chart",
   "compatibility_date": "2026-02-07",
   "assets": {
-    "directory": ".",
-    "binding": "ASSETS"
+    "directory": "."
   }
 }
