@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Quinn & Trixie's Star Chart ✨</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Environment variables for Supabase -->
+    <script>
+        window.__ENV = {
+            SUPABASE_URL: 'https://rvzsggmowpftgqudjzrs.supabase.co',
+            SUPABASE_ANON_KEY: 'sb_publishable_jFANzjXtVsrv1jDPwnravA_LQ9PISpo'
+        };
+    </script>
+</head>
+<body>
+    <!-- Connection Status Banner -->
+    <div id="connection-banner" class="banner hidden">
+        <span id="banner-text"></span>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="crown-icon">
+                <svg viewBox="0 0 40 30" width="40" height="30">
+                    <path d="M20,5 L25,15 L35,12 L30,25 L10,25 L5,12 L15,15 Z" fill="var(--gold)" stroke="var(--gold-dark)" stroke-width="1.5"/>
+                    <circle cx="20" cy="5" r="3" fill="var(--accent)"/>
+                    <circle cx="10" cy="15" r="2.5" fill="var(--accent)"/>
+                    <circle cx="30" cy="15" r="2.5" fill="var(--accent)"/>
+                </svg>
+            </div>
+            <h1>Quinn & Trixie's<br>Star Chart</h1>
+            <div class="chess-icon">
+                <svg viewBox="0 0 30 40" width="30" height="40">
+                    <path d="M15,5 L10,15 L12,30 L18,30 L20,15 Z M10,30 L20,30 L22,35 L8,35 Z" fill="var(--chess-piece)" stroke="var(--gold-dark)" stroke-width="1.5"/>
+                    <circle cx="15" cy="5" r="3" fill="var(--gold)"/>
+                </svg>
+            </div>
+        </header>
+
+        <!-- Progress Section -->
+        <section class="progress-section">
+            <div class="progress-text">
+                <span id="progress-count">0 / 60</span> stars
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar"></div>
+                <div class="progress-rainbow"></div>
+            </div>
+        </section>
+
+        <!-- Today Section -->
+        <section class="today-section">
+            <h2>Today's Stars</h2>
+            <div class="toggle-buttons">
+                <button class="toggle-btn" id="quinn-toggle" data-child="quinn">
+                    <span class="toggle-label">Quinn</span>
+                    <span class="toggle-star">⭐</span>
+                </button>
+                <button class="toggle-btn" id="trixie-toggle" data-child="trixie">
+                    <span class="toggle-label">Trixie</span>
+                    <span class="toggle-star">⭐</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Star Grid -->
+        <section class="grid-section">
+            <div class="star-grid" id="star-grid">
+                <!-- 10 rows × 6 columns = 60 stars -->
+            </div>
+        </section>
+
+        <!-- Reset Button -->
+        <section class="reset-section">
+            <button class="reset-btn" id="reset-btn">Reset Chart</button>
+        </section>
+    </div>
+
+    <!-- Confetti Canvas -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Modals -->
+    <div class="modal hidden" id="remove-modal">
+        <div class="modal-content">
+            <h3>Remove this star?</h3>
+            <div class="modal-buttons">
+                <button class="btn-secondary" id="cancel-remove">Cancel</button>
+                <button class="btn-danger" id="confirm-remove">Remove</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal hidden" id="celebration-modal">
+        <div class="modal-content celebration">
+            <h2>YOU DID IT! 🎉</h2>
+            <p>You earned the pink gymnastics bar!</p>
+            <div class="sparkles">✨ ⭐ ✨ 🌟 ✨ ⭐ ✨</div>
+            <button class="btn-primary" id="close-celebration">Hooray!</button>
+        </div>
+    </div>
+
+    <div class="modal hidden" id="reset-modal">
+        <div class="modal-content">
+            <h3>Reset the entire chart?</h3>
+            <p>Type <strong>RESET</strong> to confirm:</p>
+            <input type="text" id="reset-input" placeholder="Type RESET" autocomplete="off">
+            <div class="modal-buttons">
+                <button class="btn-secondary" id="cancel-reset">Cancel</button>
+                <button class="btn-danger" id="confirm-reset" disabled>Reset All Stars</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="confetti.js"></script>
+    <script type="module" src="supabase.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>

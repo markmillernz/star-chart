@@ -1,0 +1,532 @@
+/* Theme: Princess + Chess + Rainbows */
+:root {
+    --bg-gradient: linear-gradient(135deg, #fef6ff 0%, #f0f4ff 100%);
+    --primary: #d946ef;
+    --primary-light: #f0abfc;
+    --accent: #ec4899;
+    --gold: #fbbf24;
+    --gold-dark: #d97706;
+    --chess-piece: #8b5cf6;
+    --text: #1f2937;
+    --text-light: #6b7280;
+    --border: #e5e7eb;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --shadow-lg: rgba(0, 0, 0, 0.15);
+
+    /* Rainbow gradient */
+    --rainbow: linear-gradient(90deg,
+        #ef4444 0%,
+        #f97316 16.67%,
+        #eab308 33.33%,
+        #22c55e 50%,
+        #3b82f6 66.67%,
+        #a855f7 83.33%,
+        #ec4899 100%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 1rem;
+    -webkit-font-smoothing: antialiased;
+    touch-action: manipulation;
+}
+
+/* Connection Banner */
+.banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--rainbow);
+    color: white;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    z-index: 1000;
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.banner.hidden {
+    display: none;
+}
+
+/* Container */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 24px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 32px var(--shadow-lg);
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 24px;
+    padding: 3px;
+    background: var(--rainbow);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.header h1 {
+    font-size: 1.75rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.3;
+}
+
+.crown-icon, .chess-icon {
+    flex-shrink: 0;
+}
+
+/* Progress Section */
+.progress-section {
+    margin-bottom: 2rem;
+}
+
+.progress-text {
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+}
+
+#progress-count {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.5rem;
+}
+
+.progress-bar-container {
+    position: relative;
+    height: 24px;
+    background: #f3f4f6;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-light) 0%, var(--primary) 100%);
+    border-radius: 12px;
+    transition: width 0.5s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.progress-rainbow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--rainbow);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.progress-bar-container.complete .progress-rainbow {
+    opacity: 0.3;
+}
+
+/* Today Section */
+.today-section {
+    margin-bottom: 2rem;
+}
+
+.today-section h2 {
+    font-size: 1.25rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--text);
+}
+
+.toggle-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.toggle-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.25rem;
+    background: white;
+    border: 3px solid var(--border);
+    border-radius: 16px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 88px;
+    touch-action: manipulation;
+}
+
+.toggle-btn:active {
+    transform: scale(0.95);
+}
+
+.toggle-btn .toggle-label {
+    color: var(--text);
+}
+
+.toggle-btn .toggle-star {
+    font-size: 2rem;
+    opacity: 0.3;
+    transition: all 0.3s ease;
+}
+
+.toggle-btn.active {
+    border-color: var(--primary);
+    background: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%);
+}
+
+.toggle-btn.active .toggle-star {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+.toggle-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Star Grid */
+.grid-section {
+    margin-bottom: 2rem;
+}
+
+.star-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+}
+
+.star-slot {
+    aspect-ratio: 1;
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fafafa;
+    transition: all 0.3s ease;
+    position: relative;
+    min-height: 48px;
+    touch-action: manipulation;
+}
+
+.star-slot.filled {
+    background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+    border: 2px solid var(--gold);
+    cursor: pointer;
+}
+
+.star-slot.filled:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+}
+
+.star-slot.filled:active {
+    transform: scale(0.95);
+}
+
+.star-icon {
+    font-size: 1.75rem;
+    animation: starAppear 0.5s ease;
+}
+
+@keyframes starAppear {
+    0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.3) rotate(180deg);
+    }
+    100% {
+        transform: scale(1) rotate(360deg);
+        opacity: 1;
+    }
+}
+
+.star-slot.animate .star-icon {
+    animation: starPulse 0.6s ease;
+}
+
+@keyframes starPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+}
+
+/* Row Labels (optional, subtle) */
+.star-slot:nth-child(6n + 1)::before {
+    content: attr(data-row);
+    position: absolute;
+    left: -24px;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+/* Reset Section */
+.reset-section {
+    text-align: center;
+}
+
+.reset-btn {
+    padding: 0.75rem 1.5rem;
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    color: var(--text-light);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.reset-btn:hover {
+    border-color: #ef4444;
+    color: #ef4444;
+}
+
+/* Modals */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+    backdrop-filter: blur(4px);
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 20px 60px var(--shadow-lg);
+    animation: modalAppear 0.3s ease;
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.modal-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--text);
+}
+
+.modal-content p {
+    text-align: center;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.modal-content input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-primary, .btn-secondary, .btn-danger {
+    flex: 1;
+    padding: 0.875rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    touch-action: manipulation;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(217, 70, 239, 0.3);
+}
+
+.btn-secondary {
+    background: #f3f4f6;
+    color: var(--text);
+}
+
+.btn-secondary:hover {
+    background: #e5e7eb;
+}
+
+.btn-danger {
+    background: #ef4444;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #dc2626;
+}
+
+.btn-danger:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Celebration Modal */
+.modal-content.celebration {
+    text-align: center;
+    background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+    border: 4px solid var(--gold);
+}
+
+.modal-content.celebration h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    background: var(--rainbow);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.modal-content.celebration p {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+}
+
+.sparkles {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    animation: sparkle 1.5s ease infinite;
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.1); }
+}
+
+/* Confetti Canvas */
+#confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+}
+
+/* Responsive - Desktop */
+@media (min-width: 768px) {
+    body {
+        padding: 2rem;
+    }
+
+    .container {
+        padding: 2.5rem;
+    }
+
+    .header h1 {
+        font-size: 2.5rem;
+    }
+
+    .star-grid {
+        gap: 12px;
+    }
+
+    .star-slot {
+        min-height: 64px;
+    }
+
+    .star-icon {
+        font-size: 2.25rem;
+    }
+
+    .star-slot:nth-child(6n + 1)::before {
+        left: -32px;
+        font-size: 0.875rem;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
