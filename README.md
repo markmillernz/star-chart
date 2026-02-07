@@ -4,7 +4,7 @@ A mobile-first reward chart for tracking daily good behavior. Built with vanilla
 
 **Theme:** Princess + Chess + Rainbows
 **Goal:** Earn 60 total stars to unlock the pink gymnastics bar!
-**Domain:** accretio.com
+**Domain:** accreteo.com
 
 ## Features
 
@@ -142,12 +142,12 @@ wrangler login
 wrangler pages deploy . --project-name=star-chart
 ```
 
-### Custom Domain (accretio.com)
+### Custom Domain (accreteo.com)
 
 1. In Cloudflare Pages, go to your project settings
 2. Navigate to **Custom domains**
 3. Click **Set up a custom domain**
-4. Enter: `accretio.com` (or `www.accretio.com`)
+4. Enter: `accreteo.com` (or `www.accreteo.com`)
 5. Follow the DNS configuration steps:
    - Add a `CNAME` record pointing to your Pages URL
    - OR if using root domain, add `A` and `AAAA` records
