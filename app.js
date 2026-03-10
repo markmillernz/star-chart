@@ -21,6 +21,9 @@ class StarChartApp {
         // Modals
         this.removeModal = document.getElementById('remove-modal');
         this.celebrationModal = document.getElementById('celebration-modal');
+        this.rowCelebrationModal = document.getElementById('row-celebration-modal');
+        this.rowCelebrationTitle = document.getElementById('row-celebration-title');
+        this.rowCelebrationMessage = document.getElementById('row-celebration-message');
         this.resetModal = document.getElementById('reset-modal');
         this.resetInput = document.getElementById('reset-input');
         this.confirmResetBtn = document.getElementById('confirm-reset');
@@ -151,8 +154,9 @@ class StarChartApp {
         document.getElementById('cancel-remove').addEventListener('click', () => this.closeRemoveModal());
         document.getElementById('confirm-remove').addEventListener('click', () => this.confirmRemove());
 
-        // Celebration modal
+        // Celebration modals
         document.getElementById('close-celebration').addEventListener('click', () => this.closeCelebrationModal());
+        document.getElementById('close-row-celebration').addEventListener('click', () => this.closeRowCelebrationModal());
 
         // Reset button and modal
         document.getElementById('reset-btn').addEventListener('click', () => this.openResetModal());
@@ -161,7 +165,7 @@ class StarChartApp {
         this.resetInput.addEventListener('input', () => this.validateResetInput());
 
         // Close modals on background click
-        [this.removeModal, this.celebrationModal, this.resetModal].forEach(modal => {
+        [this.removeModal, this.celebrationModal, this.rowCelebrationModal, this.resetModal].forEach(modal => {
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
                     modal.classList.add('hidden');
@@ -246,22 +250,51 @@ class StarChartApp {
         const previousRows = Math.floor(previousTotal / 6);
         const newRows = Math.floor(newTotal / 6);
 
-        if (newRows > previousRows) {
-            // Row completed!
-            confetti.burstSmall();
-            this.playSound('milestone');
-        }
-
-        // Check for final completion (60 stars)
+        // Check for final completion (60 stars) first
         if (newTotal >= 60 && previousTotal < 60) {
             setTimeout(() => this.showCelebration(), 500);
+        } else if (newRows > previousRows) {
+            // Row completed!
+            setTimeout(() => this.showRowCelebration(newRows), 300);
         }
+    }
+
+    getRowCelebrationMessages(rowNumber) {
+        const messages = [
+            { title: 'Row 1 Done!', message: 'You\'re off to a great start! 6 stars already!' },
+            { title: 'Row 2 Complete!', message: 'Look at you go! 12 stars and shining bright!' },
+            { title: 'Row 3 Crushed!', message: '18 stars! You\'re almost a third of the way there!' },
+            { title: 'Row 4 Smashed!', message: '24 stars! Keep up the amazing work!' },
+            { title: 'HALFWAY THERE!', message: '30 stars! You\'re halfway to the goal!' },
+            { title: 'Row 6 Done!', message: '36 stars! More than half! You\'re unstoppable!' },
+            { title: 'Row 7 Complete!', message: '42 stars! The finish line is getting closer!' },
+            { title: 'Row 8 Crushed!', message: '48 stars! Only 2 rows left! Almost there!' },
+            { title: 'Row 9 Smashed!', message: '54 stars! Just ONE more row to go!' },
+        ];
+        return messages[rowNumber - 1] || { title: 'Row Complete!', message: 'Amazing work!' };
+    }
+
+    showRowCelebration(rowNumber) {
+        const { title, message } = this.getRowCelebrationMessages(rowNumber);
+        this.rowCelebrationTitle.textContent = title;
+        this.rowCelebrationMessage.textContent = message;
+        this.rowCelebrationModal.classList.remove('hidden');
+        confetti.burstSmall();
+        this.playSound('milestone');
+    }
+
+    closeRowCelebrationModal() {
+        this.rowCelebrationModal.classList.add('hidden');
     }
 
     showCelebration() {
         this.celebrationModal.classList.remove('hidden');
         confetti.burstLarge();
         this.playSound('celebration');
+        // Extra waves of confetti for the big finish
+        setTimeout(() => confetti.burstLarge(), 800);
+        setTimeout(() => confetti.burstLarge(), 1600);
+        setTimeout(() => confetti.burstLarge(), 2400);
     }
 
     closeCelebrationModal() {
